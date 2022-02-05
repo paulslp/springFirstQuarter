@@ -35,9 +35,6 @@ public class ProductController {
     @PostMapping("/add")
     public String addProduct(Model model, Product product) {
         log.info("addProduct executing ...");
-//        Product product = new Product();
-//        product.setTitle((String) model.getAttribute("title"));
-//        product.setCost((double) model.getAttribute("cost"));
         productService.add(product);
         return getAllProducts(model);
     }
