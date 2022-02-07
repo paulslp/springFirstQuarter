@@ -1,0 +1,16 @@
+spring.mvc.view:
+  prefix: '/WEB-INF/view/'
+  suffix: '.jsp'
+
+product:
+  properties:
+    products:
+      - id: 1
+        title: 'Milk'
+        cost: 50.0
+      - id: 2
+        title: 'Water'
+        cost: 20.0
+      - id: 3
+        title: 'Meat'
+        cost: 400.0
