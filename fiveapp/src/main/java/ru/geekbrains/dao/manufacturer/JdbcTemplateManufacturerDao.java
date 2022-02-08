@@ -1,12 +1,13 @@
-package ru.geekbrains.dao;
+package ru.geekbrains.dao.manufacturer;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
+import ru.geekbrains.dao.Dao;
 import ru.geekbrains.entity.Manufacturer;
 
 //@Component
 @RequiredArgsConstructor
-public class JdbcTemplateManufacturerDao implements ManufacturerDao {
+public class JdbcTemplateManufacturerDao implements Dao<Manufacturer> {
 
     private final JdbcTemplate jdbcTemplate;
 

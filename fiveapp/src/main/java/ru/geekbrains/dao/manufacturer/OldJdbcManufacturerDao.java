@@ -1,5 +1,6 @@
-package ru.geekbrains.dao;
+package ru.geekbrains.dao.manufacturer;
 
+import ru.geekbrains.dao.Dao;
 import ru.geekbrains.entity.Manufacturer;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class OldJdbcManufacturerDao implements ManufacturerDao {
+public class OldJdbcManufacturerDao implements Dao<Manufacturer> {
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:postgresql://localhost:5432/gb_shop");

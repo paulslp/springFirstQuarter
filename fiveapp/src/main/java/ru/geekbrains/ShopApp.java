@@ -1,25 +1,46 @@
 package ru.geekbrains;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.geekbrains.config.HibernateConfig;
-import ru.geekbrains.dao.ManufacturerDao;
+import ru.geekbrains.config.DbConfig;
+import ru.geekbrains.dao.Dao;
+import ru.geekbrains.dao.product.JdbcTemplateProductDao;
+import ru.geekbrains.dao.product.NamedParameterJDBCTemplateProductDao;
+import ru.geekbrains.dao.product.OldJdbcProductDao;
+import ru.geekbrains.dao.product.SpringJDBCProductDao;
+import ru.geekbrains.entity.Product;
 
 public class ShopApp {
 
     public static void main(String[] args) {
-//        OldJdbcManufacturerDao oldJdbcManufacturerDao = new OldJdbcManufacturerDao();
-//
-//
-//        for (Manufacturer manufacturer : oldJdbcManufacturerDao.findAll()) {
-//            System.out.println(manufacturer);
-//        }
+        printProducts(new OldJdbcProductDao());
 
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(HibernateConfig.class);
-        ManufacturerDao manufacturerDao = context.getBean(ManufacturerDao.class);
-        System.out.println(manufacturerDao.findById(3L));
-        System.out.println(manufacturerDao.findNameById(5L));
-//        for (Manufacturer manufacturer : manufacturerDao.findAll()) {
-//            System.out.println(manufacturer);
-//        }
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DbConfig.class);
+
+        printProducts(context.getBean(SpringJDBCProductDao.class));
+
+        printProducts(context.getBean(NamedParameterJDBCTemplateProductDao.class));
+
+        printProducts(context.getBean(JdbcTemplateProductDao.class));
+
+//        AnnotationConfigApplicationContext contextHibernate = new AnnotationConfigApplicationContext(
+//                HibernateConfig.class);
+//        printProducts(contextHibernate.getBean(Dao.class));
+    }
+
+    static void printProducts(Dao<Product> dao) {
+        System.out.println("-----------------" + dao.getClass().getSimpleName() + "--------------------");
+        System.out.println("------findById-------");
+        System.out.println(dao.findById(3L));
+        System.out.println("------findNameById-------");
+        System.out.println(dao.findNameById(5L));
+        System.out.println("------findAll-------");
+        Iterable<Product> products = dao.findAll();
+        if (products == null) {
+            System.out.println("empty");
+        } else {
+            for (Product product : products) {
+                System.out.println(product);
+            }
+        }
     }
 }

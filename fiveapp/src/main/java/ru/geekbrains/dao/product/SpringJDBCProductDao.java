@@ -1,7 +1,9 @@
-package ru.geekbrains.dao;
+package ru.geekbrains.dao.product;
 
 import lombok.RequiredArgsConstructor;
-import ru.geekbrains.entity.Manufacturer;
+import org.springframework.stereotype.Component;
+import ru.geekbrains.dao.Dao;
+import ru.geekbrains.entity.Product;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -11,27 +13,30 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Component
+@Component
 @RequiredArgsConstructor
-public class SpringJDBCManufacturerDao implements ManufacturerDao {
+public class SpringJDBCProductDao implements Dao<Product> {
 
     private final DataSource dataSource;
 
     @Override
-    public Iterable<Manufacturer> findAll() {
+    public Iterable<Product> findAll() {
         Connection connection = null;
-        Set<Manufacturer> result = new HashSet<>();
+        Set<Product> result = new HashSet<>();
 
         try {
             connection = dataSource.getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM manufacturer");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM product");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                final Manufacturer manufacturer = Manufacturer.builder()
+                final Product product = Product.builder()
                         .id(resultSet.getLong("id"))
-                        .name(resultSet.getString("name"))
+                        .title(resultSet.getString("title"))
+                        .cost(resultSet.getBigDecimal("cost"))
+                        .date(resultSet.getDate("manufacture_date")
+                                .toLocalDate())
                         .build();
-                result.add(manufacturer);
+                result.add(product);
             }
             statement.close();
 
@@ -49,7 +54,7 @@ public class SpringJDBCManufacturerDao implements ManufacturerDao {
     }
 
     @Override
-    public Manufacturer findById(Long id) {
+    public Product findById(Long id) {
         return null;
     }
 
@@ -59,12 +64,12 @@ public class SpringJDBCManufacturerDao implements ManufacturerDao {
     }
 
     @Override
-    public void insert(Manufacturer manufacturer) {
+    public void insert(Product product) {
 
     }
 
     @Override
-    public void update(Manufacturer manufacturer) {
+    public void update(Product product) {
 
     }
 
