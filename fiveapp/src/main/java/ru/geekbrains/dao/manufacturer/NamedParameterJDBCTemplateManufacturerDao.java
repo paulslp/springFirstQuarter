@@ -1,10 +1,11 @@
-package ru.geekbrains.dao;
+package ru.geekbrains.dao.manufacturer;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import ru.geekbrains.dao.Dao;
 import ru.geekbrains.entity.Manufacturer;
 import ru.geekbrains.entity.Product;
 
@@ -14,7 +15,7 @@ import java.util.HashMap;
 
 //@Component
 @RequiredArgsConstructor
-public class NamedParameterJDBCTemplateManufacturerDao implements ManufacturerDao {
+public class NamedParameterJDBCTemplateManufacturerDao implements Dao<Manufacturer> {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 

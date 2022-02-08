@@ -1,46 +1,47 @@
-package ru.geekbrains.dao;
+package ru.geekbrains.dao.product;
 
 import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.geekbrains.entity.Manufacturer;
+import ru.geekbrains.dao.Dao;
+import ru.geekbrains.entity.Product;
 
 import java.util.Collections;
 
 @Repository
 @RequiredArgsConstructor
-public class HibernateManufacturerDao implements ManufacturerDao {
+public class HibernateProductDao implements Dao<Product> {
 
     private final SessionFactory sessionFactory;
 
     @Override
     @Transactional(readOnly = true)
-    public Iterable<Manufacturer> findAll() {
-        return Collections.unmodifiableList(sessionFactory.getCurrentSession().createQuery("from Manufacturer m").list());
+    public Iterable<Product> findAll() {
+        return Collections.unmodifiableList(sessionFactory.getCurrentSession().createQuery("from Product m").list());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Manufacturer findById(Long id) {
-        return (Manufacturer) sessionFactory.getCurrentSession().getNamedQuery("Manufacturer.findById")
+    public Product findById(Long id) {
+        return (Product) sessionFactory.getCurrentSession().getNamedQuery("Product.findById")
                 .setParameter("id", id).uniqueResult();
     }
 
     @Override
     @Transactional(readOnly = true)
     public String findNameById(Long id) {
-        return (String) sessionFactory.getCurrentSession().getNamedQuery("Manufacturer.findNameById")
+        return (String) sessionFactory.getCurrentSession().getNamedQuery("Product.findNameById")
                 .setParameter("id", id).uniqueResult();
     }
 
     @Override
-    public void insert(Manufacturer manufacturer) {
+    public void insert(Product product) {
 
     }
 
     @Override
-    public void update(Manufacturer manufacturer) {
+    public void update(Product product) {
 
     }
 
