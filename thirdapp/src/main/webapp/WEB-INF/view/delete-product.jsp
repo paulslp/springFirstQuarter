@@ -8,14 +8,6 @@
 </head>
 <body>
 <h1>Products</h1>
-<form action="product" method="get">
-    find product by id:
-    <input type="text" name="id"/>
-    <input type="submit" value="Search"/>
-</form>
-<br>
-<c:url var="productsUrl" value="/products"></c:url>
-<a href="${productsUrl}">Show all products</a>
 <table border="1">
     <tr>
         <td>id</td>
@@ -39,9 +31,14 @@
     </tr>
     <%}%>
 </table>
-<c:url var="addUrl" value="/products/add"></c:url>
-<c:url var="deleteUrl" value="/products/delete"></c:url>
-<a href="${addUrl}">ADD</a>
-<a href="${deleteUrl}">DELETE</a>
+<h1>Delete product</h1>
+<form action="delete" method="post">
+    delete product with id:
+    <input type="text" name="id"/>
+    <input type="submit" value="Delete"/>
+</form>
+<c:url var="allProductsUrl" value="/products"></c:url>
+<br>
+<a href="${allProductsUrl}">ALL-PRODUCTS</a>
 </body>
 </html>

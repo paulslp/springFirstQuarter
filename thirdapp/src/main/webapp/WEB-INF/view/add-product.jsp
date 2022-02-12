@@ -14,7 +14,13 @@
     <br>
     cost:<form:input path="cost"/>
     <br>
+    manufacturer date:<form:input path="date" type="date"/>
+    <br>
+    manufacturer id:<form:input path="manufacturerId"/>
+    <br>
     <input type="submit" value="Add">
 </form:form>
+<c:url var="allProductsUrl" value="/products"></c:url>
+<a href="${allProductsUrl}">ALL-PRODUCTS</a>
 </body>
 </html>
