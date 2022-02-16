@@ -1,15 +1,20 @@
 package ru.geekbrains.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.geekbrains.domain.Product;
 
-public interface ProductDao {
-    Iterable<Product> findAll();
+import java.util.List;
+import java.util.Optional;
 
-    Product findById(Long id);
+public interface ProductDao extends JpaRepository<Product, Long> {
 
-    String findNameById(Long id);
+    List<Product> findAll();
 
-    void insert(Product manufacturer);
+    Page<Product> findAll(Pageable pageable);
+
+    Optional<Product> findById(Long id);
 
     void deleteById(Long id);
 }
