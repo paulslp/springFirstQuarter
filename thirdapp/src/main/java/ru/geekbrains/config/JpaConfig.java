@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -23,6 +25,8 @@ import java.util.Properties;
 @ComponentScan("ru.geekbrains")
 @EnableTransactionManagement
 @PropertySource("classpath:jdbc.properties")
+@EnableJpaRepositories(basePackages = "ru.geekbrains.repository")
+@EnableJpaAuditing(auditorAwareRef = "auditorAwareBean")
 public class JpaConfig {
     @Value("${driverClassName}")
     private String driverClassName;

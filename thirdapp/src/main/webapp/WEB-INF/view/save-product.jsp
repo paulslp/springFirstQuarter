@@ -8,8 +8,10 @@
     <title>Add</title>
 </head>
 <body>
-<h1>Add product</h1>
-<form:form action="add" modelAttribute="product">
+<h1><%=request.getAttribute("actionType")%> product</h1>
+<form:form action="save" modelAttribute="product">
+    <form:hidden path="id"/>
+    <br>
     title:<form:input path="title"/>
     <br>
     cost:<form:input path="cost"/>
@@ -18,7 +20,8 @@
     <br>
     manufacturer id:<form:input path="manufacturerId"/>
     <br>
-    <input type="submit" value="Add">
+    <form:hidden path="version"/>
+    <input type="submit" value=<%=request.getAttribute("actionType")%>>
 </form:form>
 <c:url var="allProductsUrl" value="/products"></c:url>
 <a href="${allProductsUrl}">ALL-PRODUCTS</a>
